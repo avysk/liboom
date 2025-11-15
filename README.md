@@ -1,0 +1,99 @@
+# Liboom
+
+## Introduction
+
+Liboom is a lightweight C library designed to facilitate using text
+menus in terminal applications. It provides a simple API to create and manage
+menus and handle user input.
+
+Unlike more complex menu libraries, Liboom *does not require switching terminal
+to a raw mode* and operates in the standard terminal mode (think `printf` and
+`scanf`).
+
+Liboom should work on any POSIX-compliant system with a C compiler, supporting
+C11 standard. I develop it on FreeBSD.
+
+## Installation and usage
+
+There are two ways to use Liboom in your project: with our without CMake.
+
+### Using CMake
+
+If your project uses CMake, you don not need to install Liboom system-wide. Instead,
+add the following lines to your `CMakeLists.txt`:
+
+```cmake
+include(FetchContent)
+
+FetchContent_Declare(
+    liboom
+    GIT_REPOSITORY https://github.com/avysk/liboom.git
+    GIT_TAG        <tag you want to use>
+)
+
+FetchContent_MakeAvailable(liboom)
+
+target_link_libraries(<your app> PRIVATE Liboom::static)
+```
+
+### Not using CMake
+
+In this case you need to build and install Liboom system-wide. I suggest you to
+link your application with Liboom's shared library.
+
+Build and installation steps for Liboom are described below. When it is
+installed, you can link your application with `-loom` flag.
+
+### Usage in your code
+
+Start by including the Liboom header:
+
+```c
+#include <liboom/liboom.h>
+```
+
+Then create leaf menu items using `loom_create_item()` function:
+
+```c
+LoomItem *item = loom_create_item("Item title", "item key", NULL);
+```
+
+Here "item key" is a string that will be returned when the user selects this
+item, and `NULL` means that it is a leaf item (not a submenu).
+
+Then create submenus, supplying to them a NULL-terminated array of pointers to
+`LoomItem` objects (which can be leaf items or other submenus):
+
+```c
+LoomItem *submenu_items[] = { item1, item2, NULL };
+LoomItem *submenu = loom_create_item("Submenu title", NULL, submenu_items);
+```
+
+Notice that:
+
+- You can pass arbitrary string as the "item key" for submenu items (not
+  necessarily `NULL`) but it will be ignored.
+- A submenu will use exactly the passed items, so do not free them.
+- When you will finally free the root menu with `loom_free_item()`, all its
+  subitems will be freed too recursively.
+
+After you created the root menu, you can ask Liboom to ask the user for
+selection:
+
+```c
+char *selected_key = loom_select(root_menu);
+```
+
+You will get back the "item key" of the selected leaf item.
+
+When you are done, free the root menu:
+
+```c
+loom_free_item(root_menu);
+```
+
+As said before, all subitems will be freed too (recursively, i.e children,
+children of children, etc.). Notice that items' titles and keys are not freed,
+as they are supposed to be string literals or managed by the user. Similarly,
+that if some of them are variables, do not let them run out of scope while you
+are still using the menu.
