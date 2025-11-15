@@ -65,7 +65,9 @@ Then create submenus, supplying to them a NULL-terminated array of pointers to
 `LoomItem` objects (which can be leaf items or other submenus):
 
 ```c
-LoomItem *submenu_items[] = { item1, item2, NULL };
+LoomItem *item1, *item2;
+// create leaf items for item1 and item2
+LoomItem const *const submenu_items[] = { item1, item2, NULL };
 LoomItem *submenu = loom_create_item("Submenu title", NULL, submenu_items);
 ```
 
