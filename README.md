@@ -97,3 +97,29 @@ children of children, etc.). Notice that items' titles and keys are not freed,
 as they are supposed to be string literals or managed by the user. Similarly,
 that if some of them are variables, do not let them run out of scope while you
 are still using the menu.
+
+## Building and installing Liboom
+
+To build and install Liboom system-wide, follow these steps:
+
+Requirements: CMake, ninja build system (see below for alternative), C11-capable
+C compiler.
+
+1. Clone the repository.
+2. Run `make`.
+3. Run `make install` as root.
+
+### Alternative build without ninja
+
+In this case you will need `make`.
+
+1. Clone the repository.
+2. Run `cmake -B build -G "Unix Makefiles"`.
+3. `cd build`.
+4. Run `make`.
+5. Run `make install` as root.
+
+### Documentation
+
+If you have `doxygen` installed, the documentation will be generated during the
+build process in the `docs/html` folder.

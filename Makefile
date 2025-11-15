@@ -5,4 +5,7 @@ all: build
 build: CMakeLists.txt tests/CMakeLists.txt
 	@cmake --fresh -S . -B build
 
-.PHONY: all
+install: build
+	@cmake --install build
+
+.PHONY: all install
