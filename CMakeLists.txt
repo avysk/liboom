@@ -46,6 +46,7 @@ write_basic_package_version_file(
         ${CMAKE_CURRENT_BINARY_DIR}/LiboomConfigVersion.cmake
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY SameMajorVersion) 
+
 configure_package_config_file(
         cmake/LiboomConfig.cmake.in
         ${CMAKE_CURRENT_BINARY_DIR}/LiboomConfig.cmake
@@ -57,3 +58,18 @@ install(FILES
 
 enable_testing()
 add_subdirectory(tests)
+
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+        set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/docs)
+        set(DOXYGEN_EXTRACT_ALL YES)
+        set(DOXYGEN_GENERATE_TREEVIEW YES)
+        set(DOXYGEN_HTML_DYNAMIC_SECTIONS YES)
+        set(DOXYGEN_SHOW_GROUPED_MEMBERS YES)
+        set(DOXYGEN_OPTIMIZE_OUTPUT_FOR_C YES)
+        set(DOXYGEN_PROJECT_NAME ${PROJECT_NAME})
+        set(DOXYGEN_PROJECT_NUMBER ${PROJECT_VERSION})
+        set(DOXYGEN_PROJECT_BRIEF "Simple library for text menus")
+        set(DOXYGEN_STRIP_FROM_PATH ${CMAKE_SOURCE_DIR}/src)
+        doxygen_add_docs(docs src/liboom.h ALL)
+endif()
