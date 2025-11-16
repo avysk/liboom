@@ -56,5 +56,10 @@ int main() {
   }
 
   free_liboom_item(root);
+
+  for (size_t i = 0; i < 7; ++i) {
+    free(titles[i]);
+    free(keys[i]);
+  }
   return 0;
 }

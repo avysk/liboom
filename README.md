@@ -125,3 +125,8 @@ In this case you will need `make`.
 
 If you have `doxygen` installed, the documentation will be generated during the
 build process in the `docs/html` folder.
+
+### Testing
+
+The tests are built during the build process. To run them, after building, run
+`make test` (valgrind is required). The tests will be run under valgrind.

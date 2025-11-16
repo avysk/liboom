@@ -1,11 +1,13 @@
 all: build
 	@cmake --build build
-	@-ctest --test-dir build --output-on-failure
 
 build: CMakeLists.txt tests/CMakeLists.txt
 	@cmake --fresh -S . -B build
 
-install: build
+install: all
 	@cmake --install build
 
-.PHONY: all install
+test: all
+	@ctest --test-dir build --output-on-failure -T memcheck
+
+.PHONY: all install test

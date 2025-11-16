@@ -60,6 +60,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LiboomConfig.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Liboom)
 
 enable_testing()
+include(CTest)
 add_subdirectory(tests)
 
 find_package(Doxygen)
