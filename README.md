@@ -52,23 +52,23 @@ Start by including the Liboom header:
 #include <liboom/liboom.h>
 ```
 
-Then create leaf menu items using `loom_create_leaf()` function:
+Then create leaf menu items using `liboom_create_leaf()` function:
 
 ```c
-LoomItem *item = loom_create_item("Item title", "item key");
+LiboomItem *item = create_liboom_leaf("Item title", "item key");
 ```
 
 Here "item key" is a string that will be returned when the user selects this
 item.
 
 Then create submenus, supplying to them a NULL-terminated array of pointers to
-`LoomItem` objects (which can be leaf items or other submenus):
+`LiboomItem` objects (which can be leaf items or other submenus):
 
 ```c
-LoomItem *item1, *item2;
+LiboomItem *item1, *item2;
 // create leaf items for item1 and item2
-LoomItem const *const submenu_items[] = { item1, item2, NULL };
-LoomItem *submenu = loom_create_submenu("Submenu title", submenu_items);
+LiboomItem const *const submenu_items[] = { item1, item2, NULL };
+LiboomItem *submenu = create_liboom_submenu("Submenu title", submenu_items);
 ```
 
 Notice that:
@@ -81,7 +81,7 @@ After you created the root menu, you can ask Liboom to ask the user for
 selection:
 
 ```c
-char const*const selected_key = loom_select(root_menu);
+char const*const selected_key = select_from_liboom_menu(root_menu);
 ```
 
 You will get back the "item key" of the selected leaf item.
@@ -89,7 +89,7 @@ You will get back the "item key" of the selected leaf item.
 When you are done, free the root menu:
 
 ```c
-loom_free_item(root_menu);
+free_liboom_item(root_menu);
 ```
 
 As said before, all subitems will be freed too (recursively, i.e children,
