@@ -1,19 +1,34 @@
 #include "liboom.h"
 
+#include <assert.h>
 #include <stdlib.h>
+
+const LiboomItem *create_liboom_item(char const *const, char const *const,
+                                     LiboomItem const *const *);
+
+const LiboomItem *create_liboom_leaf(char const *const title,
+                                     char const *const key) {
+  return create_liboom_item(title, key, NULL);
+}
+
+const LiboomItem *create_liboom_submenu(char const *const title,
+                                        LiboomItem const *const *children) {
+  return create_liboom_item(title, NULL, children);
+}
 
 const LiboomItem *create_liboom_item(char const *const title,
                                      char const *const key,
                                      LiboomItem const *const *children) {
   LiboomItem *item = (LiboomItem *)malloc(sizeof(LiboomItem));
   if (!item) {
-    return NULL; // Memory allocation failed
+    return NULL;
   }
 
   item->title = title;
 
   if (children) {
-    item->key = NULL; // Ignore key if children are provided
+    assert(!key);
+    item->key = NULL;
     item->children = children;
   } else {
     item->key = key;
