@@ -1,20 +1,58 @@
 #include "liboom.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 int main() {
-  const LiboomItem *item1 = create_liboom_item("Title1", "Key1", NULL);
-  const LiboomItem *item2 = create_liboom_item("Title2", "Key2", NULL);
-  const LiboomItem *item3 = create_liboom_item("Title3", "Key3", NULL);
-  if (!item1 || !item2 || !item3) {
-    return 1; // Memory allocation failed
+  // Create a sample menu structure
+  // Root
+  // ├── Submenu 1
+  // │   ├── Item 1
+  // │   └── Item 2
+  // ├── Sembenu 2
+  // │   ├── Item 3
+  // │   ├── Sumbenu 3
+  // │   │   ├── Item 4
+  // │   │   └── Item 5
+  // │   └── Item 6
+  // └── Item 7
+  const LiboomItem *items[7];
+  char *titles[7];
+  char *keys[7];
+  for (size_t i = 0; i < 7; ++i) {
+    if (asprintf(&titles[i], "Item %zu", i + 1) == -1) {
+      return 1;
+    }
+    if (asprintf(&keys[i], "Key%zu", i + 1) == -1) {
+      return 1;
+    }
+    items[i] = create_liboom_item(titles[i], keys[i], NULL);
+    if (!items[i]) {
+      return 1;
+    }
   }
-  LiboomItem const *const children[] = {item1, item2, NULL};
-  const LiboomItem *submenu = create_liboom_item("Submenu", NULL, children);
-  const LiboomItem *root_children[] = {submenu, item3, NULL};
-  const LiboomItem *root = create_liboom_item("Root", NULL, root_children);
-  if (!submenu || !root) {
-    return 1; // Memory allocation failed
+  const LiboomItem *submenus[3];
+  submenus[0] = create_liboom_item(
+      "Submenu 1", NULL, (LiboomItem const *const[]){items[0], items[1], NULL});
+  if (!submenus[0]) {
+    return 1;
+  }
+  submenus[2] = create_liboom_item(
+      "Submenu 3", NULL, (LiboomItem const *const[]){items[3], items[4], NULL});
+  if (!submenus[2]) {
+    return 1;
+  }
+  submenus[1] = create_liboom_item(
+      "Submenu 2", NULL,
+      (LiboomItem const *const[]){items[2], submenus[2], items[5], NULL});
+  if (!submenus[1]) {
+    return 1;
+  }
+  const LiboomItem *root = create_liboom_item(
+      "Root", NULL,
+      (LiboomItem const *const[]){submenus[0], submenus[1], items[6], NULL});
+  if (!root) {
+    return 1;
   }
 
   free_liboom_item(root);
