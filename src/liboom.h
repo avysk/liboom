@@ -4,6 +4,8 @@
  */
 #pragma once
 
+#include <stdbool.h>
+
 typedef struct LiboomItem {
   char const *title;
   char const *key;
@@ -47,6 +49,20 @@ const LiboomItem *create_liboom_leaf(char const *const title,
  */
 const LiboomItem *create_liboom_submenu(char const *const title,
                                         LiboomItem const *const *children);
+/**
+ * @brief Display a menu based on the provided LiboomItem structure and allow
+ *        the user to select an item, proceeding recursively into submenus as
+ *        needed.
+ *
+ * @param root_item The pointer to the root LiboomItem representing the menu.
+ * @param allow_empty_selection If true, the user can select no item by pressing
+ *         Ctrl-D, in which case NULL is returned. If false, the user must make
+ *         a valid selection.
+ * @retval NULL if the user cancels the selection by pressing Ctrl+D.
+ * @retval the key of the selected item.
+ */
+const char *const select_from_liboom_menu(const LiboomItem *root_item,
+                                          bool allow_empty_selection);
 
 /**
  * @brief Free a LiboomItem and all its children recursively.

@@ -2,7 +2,7 @@ all: build
 	@cmake --build build
 
 build: CMakeLists.txt tests/CMakeLists.txt
-	@cmake --fresh -S . -B build
+	@cmake --fresh -S . -B build -DCMAKE_BUILD_TYPE=Debug
 
 install: all
 	@cmake --install build

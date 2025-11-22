@@ -1,3 +1,6 @@
-add_executable(test_smoke test_smoke.c)
+add_executable(test_smoke test_smoke.c setup.c)
 target_link_libraries(test_smoke PRIVATE Liboom::static)
 add_test(NAME test_smoke COMMAND test_smoke)
+add_executable(test_basic_selection test_basic_selection.c setup.c)
+target_link_libraries(test_basic_selection PRIVATE Liboom::static)
+add_test(NAME test_basic_selection COMMAND test_basic_selection)
