@@ -15,6 +15,8 @@ to a raw mode* and operates in the standard terminal mode (think `printf` and
 Liboom should work on any POSIX-compliant system with a C compiler, supporting
 C11 standard. I develop it on FreeBSD.
 
+Documentation is published at https://avysk.github.io/liboom/
+
 ## Installation and usage
 
 There are two ways to use Liboom in your project: with our without CMake.
