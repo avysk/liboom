@@ -1,5 +1,7 @@
 # Liboom
 
+[![Tests](https://github.com/avysk/liboom/actions/workflows/cmake-single-platform.yml/badge.svg)](https://github.com/avysk/liboom/actions/workflows/cmake-single-platform.yml)
+
 ## Introduction
 
 Liboom is a lightweight C library designed to facilitate using text
