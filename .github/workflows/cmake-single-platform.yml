@@ -23,7 +23,7 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Install valgrind
-      run: apt update && apt install valgrind -y
+      run: sudo apt update && sudo apt install valgrind -y
 
     - name: Test
       working-directory: ${{github.workspace}}
