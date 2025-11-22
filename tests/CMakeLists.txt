@@ -29,3 +29,7 @@ add_test(NAME test_select_back3 COMMAND test_select_back3)
 add_executable(test_select_back4 test_select_back4.c setup.c)
 target_link_libraries(test_select_back4 PRIVATE Liboom::static)
 add_test(NAME test_select_back4 COMMAND test_select_back4)
+
+add_executable(test_select_empty test_select_empty.c setup.c)
+target_link_libraries(test_select_empty PRIVATE Liboom::static)
+add_test(NAME test_select_empty COMMAND test_select_empty)
