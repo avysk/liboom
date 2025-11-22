@@ -13,9 +13,9 @@ const LiboomItem *create_test_menu(char *titles[static 7],
   // ├── Submenu 1
   // │   ├── Item 1
   // │   └── Item 2
-  // ├── Sumbenu 2
+  // ├── Submenu 2
   // │   ├── Item 3
-  // │   ├── Sumbenu 3
+  // │   ├── Submenu 3
   // │   │   ├── Item 4
   // │   │   └── Item 5
   // │   └── Item 6

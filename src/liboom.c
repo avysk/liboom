@@ -81,17 +81,19 @@ char const *const select_from_liboom_menu(const LiboomItem *root_item,
     do {
       display_liboom_menu(root_item);
       if (allow_empty_selection) {
-        printf("\n(Press Ctrl-D to cancel selection or go one level up) > ");
+        printf("\n(Enter 0 to cancel selection or go one level up) > ");
       } else {
         printf("\n> ");
       }
       fflush(stdout);
       res = scanf("%zu", &choice);
-      if (res == EOF) {
-        clearerr(stdin);
+      if (choice == 0) {
         if (allow_empty_selection) {
           return NULL;
         }
+      }
+      if (res == EOF) {
+        clearerr(stdin);
       }
     } while (res == 0 || res == EOF || choice == 0 || choice > count);
     const LiboomItem *selected_item = root_item->children[choice - 1];
