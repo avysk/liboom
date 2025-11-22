@@ -35,6 +35,9 @@ jobs:
         path: ./docs/html
 
   deploy:
+    permissions:
+      contents: write
+      id-token: write
     needs: build
     runs-on: ubuntu-latest
     environment:
