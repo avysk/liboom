@@ -94,8 +94,8 @@ free_liboom_item(root_menu);
 
 As said before, all subitems will be freed too (recursively, i.e children,
 children of children, etc.). Notice that items' titles and keys are not freed,
-as they are supposed to be string literals or managed by the user. Similarly,
-that if some of them are variables, do not let them run out of scope while you
+as they are supposed to be string literals or managed by the user.
+If some of them are variables, do not let them run out of scope while you
 are still using the menu.
 
 ## Building and installing Liboom
