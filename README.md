@@ -23,7 +23,7 @@ There are two ways to use Liboom in your project: with or without CMake.
 
 ### Using CMake
 
-If your project uses CMake, you don not need to install Liboom system-wide. Instead,
+If your project uses CMake, you do not need to install Liboom system-wide. Instead,
 add the following lines to your `CMakeLists.txt`:
 
 ```cmake
