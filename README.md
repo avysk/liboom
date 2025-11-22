@@ -19,7 +19,7 @@ Documentation is published at https://avysk.github.io/liboom/
 
 ## Installation and usage
 
-There are two ways to use Liboom in your project: with our without CMake.
+There are two ways to use Liboom in your project: with or without CMake.
 
 ### Using CMake
 
