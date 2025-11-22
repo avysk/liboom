@@ -59,6 +59,10 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/LiboomConfig.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/LiboomConfigVersion.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/Liboom)
 
+find_program(VALGRIND_EXECUTABLE valgrind REQUIRED)
+set(MEMORYCHECK_COMMAND ${VALGRIND_EXECUTABLE})
+set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --error-exitcode=1")
+
 enable_testing()
 include(CTest)
 add_subdirectory(tests)
